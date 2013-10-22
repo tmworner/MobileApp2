@@ -56,7 +56,7 @@ public class ViewListFragment extends ListFragment
 	{
 		switch(item.getItemId())
 		{
-			case R.id.action_add_course:
+			case R.id.action_add_contact:
 			{
 				this.listener.insertContact();
 			}

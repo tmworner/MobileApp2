@@ -33,7 +33,7 @@ public class ViewDetailFragment extends Fragment{
 	@Override
 	public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
-		View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
+		View rootView = inflater.inflate(R.layout.detail_fragment, container, false);
 		
 		this.textViewContactName = (TextView) rootView.findViewById(R.id.textViewContactName);
 		
@@ -94,7 +94,7 @@ public class ViewDetailFragment extends Fragment{
 				this.listener.updateContact(this.contact);
 				return true;
 			}
-			case R.id.action_deleteContact(this.contact);
+			case R.id.action_delete_contact:
 			{
 				this.listener.deleteContact(this.contact);
 				return true;
