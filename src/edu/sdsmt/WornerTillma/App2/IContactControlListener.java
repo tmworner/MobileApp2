@@ -3,12 +3,13 @@ package edu.sdsmt.WornerTillma.App2;
 import android.widget.ArrayAdapter;
 import edu.sdsmt.WornerTillma.App2.Model.Contact;
 
-public class IContactControlListener {
+public interface IContactControlListener {
 
-	public void selectedContact(Contact contact);
+	public void selectContact(Contact contact);
 	public void insertContact();
 	public void insertContact(Contact contact);
-	public void deleteContact(contact contact);
+	public void deleteContact(Contact contact);
+	public void updateContact(Contact contact);
 	public Contact getContact();
-	public ArrayAdapter<Contact> getContactArrayAdapater();
+	public ArrayAdapter<Contact> getContactArrayAdapter();
 }

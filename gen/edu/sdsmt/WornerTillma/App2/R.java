@@ -31,7 +31,10 @@ public final class R {
         public static final int Name=0x7f080000;
         public static final int Phone=0x7f080001;
         public static final int Street=0x7f080004;
+        public static final int action_add_course=0x7f080009;
+        public static final int action_delete_course=0x7f080007;
         public static final int action_settings=0x7f080006;
+        public static final int action_update_course=0x7f080008;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
@@ -39,12 +42,17 @@ public final class R {
     }
     public static final class menu {
         public static final int main=0x7f070000;
+        public static final int menu_detail=0x7f070001;
+        public static final int menu_list=0x7f070002;
     }
     public static final class string {
         public static final int AddressStr=0x7f050003;
         public static final int action_settings=0x7f050001;
+        public static final int add_contact=0x7f050004;
         public static final int app_name=0x7f050000;
+        public static final int delete_contact=0x7f050005;
         public static final int hello_world=0x7f050002;
+        public static final int update_contact=0x7f050006;
     }
     public static final class style {
         /** 

@@ -10,7 +10,7 @@ import android.view.Menu;
 import android.widget.ArrayAdapter;
 import edu.sdsmt.WornerTillma.App2.Model.Contact;
 
-public class MainActivity extends Activity implements ICourseControlListener
+public class MainActivity extends Activity implements IContactControlListener
 {
 	private final static String FRAGMENT_LIST_TAG = "ContactListTag";
 	private final static String FRAGMENT_DETAIL_TAG = "ContactViewTag";
@@ -78,7 +78,7 @@ public class MainActivity extends Activity implements ICourseControlListener
 		this.adapter.notifyDataSetChanged();
 		
 		this.model.insertContact(contact);
-		this.fragmentManger.popBackStackImmediate();
+		this.fragmentManager.popBackStackImmediate();
 	}
 	
 	@Override
@@ -89,7 +89,7 @@ public class MainActivity extends Activity implements ICourseControlListener
 		this.adapter.notifyDataSetChanged();
 		
 		this.model.deleteContact(contact);
-		this.fragmentManger.popBackStackImmediate();
+		this.fragmentManager.popBackStackImmediate();
 	}
 	
 	@Override
@@ -101,15 +101,17 @@ public class MainActivity extends Activity implements ICourseControlListener
 		this.adapter.notifyDataSetChanged();
 		
 		this.model.updateContact(contact);
-		this.fragmentManger.popBackStackImmediate();
+		this.fragmentManager.popBackStackImmediate();
 	}
 	
-	@Override Contact getContact()
+	@Override 
+	public Contact getContact()
 	{
-		return this.contact();
+		return this.contact;
 	}
 	
-	@Override public ArrayAdapter<Contact> getContactArrayAdapter()
+	@Override 
+	public ArrayAdapter<Contact> getContactArrayAdapter()
 	{
 		return this.adapter;
 	}
@@ -130,7 +132,7 @@ public class MainActivity extends Activity implements ICourseControlListener
 									 this.fragmentDetail,
 									 FRAGMENT_DETAIL_TAG).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
 									 					 .addToBackStack(null)
-									 					 .commit():
+									 					 .commit();
 											 								
 	}
 

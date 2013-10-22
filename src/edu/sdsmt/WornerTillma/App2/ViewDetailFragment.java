@@ -18,7 +18,7 @@ public class ViewDetailFragment extends Fragment{
 	private Contact contact = null;
 	private boolean isOrientationChanging = false;
 	
-	private TextView textViewContacteNumber;
+	private TextView textViewContactName;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -35,7 +35,7 @@ public class ViewDetailFragment extends Fragment{
 	{
 		View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
 		
-		textViewCourseNumber = (TextView) rootView.findViewById(R.id.textViewContactNumber);
+		this.textViewContactName = (TextView) rootView.findViewById(R.id.textViewContactName);
 		
 		return rootView;
 	}
@@ -45,12 +45,13 @@ public class ViewDetailFragment extends Fragment{
 	{
 		try
 		{
-			listener = (IContactControlListener) activity;
+			this.listener = (IContactControlListener) activity;
 		}
 		catch (ClassCastException e)
 		{
 			throw new ClassCastException (activity.toString());
 		}
+		
 		super.onAttach(activity);
 	}
 	
@@ -59,9 +60,9 @@ public class ViewDetailFragment extends Fragment{
 	{
 		super.onResume();
 		
-		if(isOrientationChanging == false)
+		if(this.isOrientationChanging == false)
 		{	
-			contact = listener.getContact();
+			this.contact = this.listener.getContact();
 		}
 		
 		displayContact();
@@ -70,32 +71,32 @@ public class ViewDetailFragment extends Fragment{
 	@Override
 	public void onPause()
 	{
-		isOrientationChanging = getActivity().isChangingConfigurations();
+		this.isOrientationChanging = getActivity().isChangingConfigurations();
 		
 		super.onPause();
 	}
 	
 	@Override
-	public void onCreatOptionsMenu (Menu menu, MenuInflater menuInflator)
+	public void onCreateOptionsMenu(Menu menu, MenuInflater menuInflator)
 	{
-		if(course.ID > 0)
+		if(this.contact.ID > 0)
 			getActivity().getMenuInflater().inflate(R.menu.menu_detail, menu);
 	}
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item)
 	{
-		switch (item.getItemID())
+		switch (item.getItemId())
 		{
 			case R.id.action_update_contact:
 			{
-				course.CoontactNumber += "| \UPDATED!";
-				listener.updateContact(contact);
+				this.contact.Name += "| UPDATED!";
+				this.listener.updateContact(this.contact);
 				return true;
 			}
-			case R.id.action_deleteContact( contact);
+			case R.id.action_deleteContact(this.contact);
 			{
-				listener.deleteContact(contact);
+				this.listener.deleteContact(this.contact);
 				return true;
 			}
 			default:
@@ -107,13 +108,13 @@ public class ViewDetailFragment extends Fragment{
 	
 	private void displayContact()
 	{
-		if (contact.ID > 0)
+		if (this.contact.ID > 0)
 		{
-			textViewContactNumber.setText(contact.ContactNumber);
+			this.textViewContactName.setText(this.contact.Name);
 		}
 		else
 		{
-			textViewCourseNumber.setText("NEW COURSE COMING SOON!");
+			this.textViewContactName.setText("NEW COURSE COMING SOON!");
 		}
 	}
 	

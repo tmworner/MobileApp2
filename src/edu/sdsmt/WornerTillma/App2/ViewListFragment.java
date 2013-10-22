@@ -33,7 +33,7 @@ public class ViewListFragment extends ListFragment
 	{
 		try
 		{
-			this.listener  (IContactControlListener) activity;
+			this.listener = (IContactControlListener) activity;
 		}
 		catch (ClassCastException e)
 		{
@@ -78,7 +78,7 @@ public class ViewListFragment extends ListFragment
 		}
 	}
 	
-	private void refeshContactList()
+	private void refreshContactList()
 	{
 		setListAdapter(this.listener.getContactArrayAdapter());
 	}
