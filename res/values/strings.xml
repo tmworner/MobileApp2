@@ -14,5 +14,7 @@
     <string name="delete_contact">Delete Contact</string>
     <string name="update_contact">Update Contact</string>
     <string name="save">Save</string>
+    <color name="focusedBorderColor">#00BFFF</color>
+    <color name="normBorderColor">#555</color>
 
 </resources>
