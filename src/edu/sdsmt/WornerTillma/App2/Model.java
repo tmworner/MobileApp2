@@ -14,7 +14,11 @@ import android.util.Log;
 public class Model extends SQLiteOpenHelper
 {
 	public static final String KEY_ID = "ContactID";
-	public static final String KEY_NAME = "ContactNumber";
+	public static final String KEY_NAME = "ContactName";
+	public static final String KEY_PHONE = "ContactPhone";
+	public static final String KEY_EMAIL = "ContactEmail";
+	public static final String KEY_STREET = "ContactStreet";
+	public static final String KEY_CITY = "ContactCity";
 	
 	private static final String TAG = "App2";
 	
@@ -106,7 +110,7 @@ public class Model extends SQLiteOpenHelper
 		Contact contact = null;
 		this.openDBConnection();
 		Cursor cursor = this.db.query(TABLE_MYCONTACTS, 
-									  new String[] { KEY_ID, KEY_NAME },
+									  new String[] { KEY_ID, KEY_NAME, KEY_PHONE, KEY_EMAIL, KEY_STREET, KEY_CITY },
 									  null,
 									  null,
 									  null,
@@ -131,7 +135,7 @@ public class Model extends SQLiteOpenHelper
 		this.openDBConnection();
 		
 		Cursor cursor = this.db.query(TABLE_MYCONTACTS, 
-									  new String[] {KEY_ID, KEY_NAME},
+									  new String[] { KEY_ID, KEY_NAME, KEY_PHONE, KEY_EMAIL, KEY_STREET, KEY_CITY },
 									  null,
 									  null,
 									  null,
@@ -169,6 +173,10 @@ public class Model extends SQLiteOpenHelper
 	{
 		Contact contact = new Contact(cursor.getLong(cursor.getColumnIndex(KEY_ID)));
 		contact.Name = cursor.getString(cursor.getColumnIndex(KEY_NAME));
+		contact.Phone = cursor.getString(cursor.getColumnIndex(KEY_PHONE));
+		contact.Email = cursor.getString(cursor.getColumnIndex(KEY_EMAIL));
+		contact.Street = cursor.getString(cursor.getColumnIndex(KEY_STREET));
+		contact.City = cursor.getString(cursor.getColumnIndex(KEY_CITY));
 		return contact;
 	}
 	
@@ -176,6 +184,10 @@ public class Model extends SQLiteOpenHelper
 	{
 		ContentValues values = new ContentValues();
 		values.put(KEY_NAME, contact.Name);
+		values.put(KEY_PHONE, contact.Phone);
+		values.put(KEY_EMAIL, contact.Email);
+		values.put(KEY_STREET, contact.Street);
+		values.put(KEY_CITY, contact.City);
 		return values;
 	}
 	
@@ -183,6 +195,10 @@ public class Model extends SQLiteOpenHelper
 	{
 		public long ID;
 		public String Name;
+		public String Phone;
+		public String Email;
+		public String Street;
+		public String City;
 		
 		public Contact()
 		{
