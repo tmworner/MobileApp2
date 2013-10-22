@@ -30,11 +30,12 @@ public final class R {
         public static final int Email=0x7f080003;
         public static final int Name=0x7f080001;
         public static final int Phone=0x7f080002;
+        public static final int Save=0x7f080007;
         public static final int Street=0x7f080005;
-        public static final int action_add_contact=0x7f08000a;
-        public static final int action_delete_contact=0x7f080008;
-        public static final int action_settings=0x7f080007;
-        public static final int action_update_contact=0x7f080009;
+        public static final int action_add_contact=0x7f08000b;
+        public static final int action_delete_contact=0x7f080009;
+        public static final int action_settings=0x7f080008;
+        public static final int action_update_contact=0x7f08000a;
         public static final int fragmentContainerFrame=0x7f080000;
     }
     public static final class layout {
@@ -58,6 +59,7 @@ public final class R {
         public static final int app_name=0x7f050000;
         public static final int delete_contact=0x7f05000a;
         public static final int hello_world=0x7f050002;
+        public static final int save=0x7f05000c;
         public static final int update_contact=0x7f05000b;
     }
     public static final class style {
