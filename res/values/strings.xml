@@ -6,6 +6,11 @@
     <string name="hello_world">Hello world!</string>
     <string name="AddressStr">Address</string>
     <string name="add_contact">Add Contact</string>
+    <string name="add_name">Name</string>
+    <string name="add_number">Phone Number</string>
+    <string name="add_email">Email</string>
+    <string name="add_street">Street Address</string>
+    <string name="add_city">City</string>
     <string name="delete_contact">Delete Contact</string>
     <string name="update_contact">Update Contact</string>
 

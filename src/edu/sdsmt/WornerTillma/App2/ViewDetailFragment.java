@@ -9,7 +9,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.EditText;
 import edu.sdsmt.WornerTillma.App2.Model.Contact;
 
 public class ViewDetailFragment extends Fragment{
@@ -18,7 +18,7 @@ public class ViewDetailFragment extends Fragment{
 	private Contact contact = null;
 	private boolean isOrientationChanging = false;
 	
-	private TextView textViewContactName;
+	private EditText EditTextContactName;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -35,7 +35,7 @@ public class ViewDetailFragment extends Fragment{
 	{
 		View rootView = inflater.inflate(R.layout.detail_fragment, container, false);
 		
-		this.textViewContactName = (TextView) rootView.findViewById(R.id.textViewContactName);
+		this.EditTextContactName = (EditText) rootView.findViewById(R.id.Name);
 		
 		return rootView;
 	}
@@ -108,14 +108,14 @@ public class ViewDetailFragment extends Fragment{
 	
 	private void displayContact()
 	{
-		if (this.contact.ID > 0)
+/*		if (this.contact.ID > 0)
 		{
-			this.textViewContactName.setText(this.contact.Name);
+			this.EditTextContactName.setText(this.contact.Name);
 		}
 		else
 		{
-			this.textViewContactName.setText("NEW COURSE COMING SOON!");
-		}
+			this.EditTextContactName.setHint("New Contact");
+		}*/
 	}
 	
 }
