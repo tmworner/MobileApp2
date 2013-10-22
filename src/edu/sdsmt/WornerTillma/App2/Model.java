@@ -30,7 +30,11 @@ public class Model extends SQLiteOpenHelper
 			"CREATE TABLE " +
 			TABLE_MYCONTACTS + 
 			"(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + 
-			KEY_NAME + " TEXT);";
+			KEY_NAME + " TEXT, " + 
+			KEY_PHONE + " TEXT, " + 
+			KEY_EMAIL + " TEXT, " + 
+			KEY_STREET + " TEXT, " + 
+			KEY_CITY + " TEXT);";
 	
 	private SQLiteDatabase db;
 	private static Model instance;
