@@ -53,7 +53,7 @@ public class Model extends SQLiteOpenHelper
 	@Override
 	public void onUpgrade(SQLiteDatabase _db, int oldVersion, int newVersion)
 	{
-		if(newVersion == 2)
+		if(newVersion > 1)
 		{
 			// No version 2 upgrade process yet
 		}

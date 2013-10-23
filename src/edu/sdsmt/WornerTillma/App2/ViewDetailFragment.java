@@ -8,11 +8,14 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import edu.sdsmt.WornerTillma.App2.Model.Contact;
 
-public class ViewDetailFragment extends Fragment{
+public class ViewDetailFragment extends Fragment implements OnClickListener
+{
 
 	private IContactControlListener listener;
 	private Contact contact = null;
@@ -31,11 +34,29 @@ public class ViewDetailFragment extends Fragment{
 	}
 	
 	@Override
+	public void onClick(View v)
+	{
+		View parent = (View) v.getParent();
+		Contact contact = new Contact();
+		contact.Name = ((EditText)parent.findViewById(R.id.Name)).getText().toString();
+		contact.Phone = ((EditText)parent.findViewById(R.id.Phone)).getText().toString();
+		contact.Email = ((EditText)parent.findViewById(R.id.Email)).getText().toString();
+		contact.Street = ((EditText)parent.findViewById(R.id.Street)).getText().toString();
+		contact.City = ((EditText)parent.findViewById(R.id.City)).getText().toString();
+		MainActivity m = (MainActivity) this.getActivity();
+		m.insertContact(contact);
+	}
+	
+	@Override
 	public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
 		View rootView = inflater.inflate(R.layout.detail_fragment, container, false);
 		
 		this.EditTextContactName = (EditText) rootView.findViewById(R.id.Name);
+
+		
+		Button saveBtn = (Button) rootView.findViewById(R.id.Save);
+		saveBtn.setOnClickListener(this);
 		
 		return rootView;
 	}
