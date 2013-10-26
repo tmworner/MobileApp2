@@ -3,6 +3,7 @@ package edu.sdsmt.WornerTillma.App2;
 import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -38,8 +39,17 @@ public class ViewDetailFragment extends Fragment implements OnClickListener
 		if(v.getId() == R.id.Save)
 		{
 			this.updateContact();
-		
-			if(this.isEditMode)
+			
+			EditText nameField = (EditText)this.rootView.findViewById(R.id.Name);
+			
+			if(nameField.getText().toString().equals(""))
+			{
+				if(nameField.getHint().toString().equals("Name"))
+					nameField.setHint(Html.fromHtml("<i>Name is Required</i>"));
+				else
+					nameField.setHint(Html.fromHtml("<i>" + nameField.getHint().toString() + "!</i>"));
+			}
+			else if(this.isEditMode)
 			{
 				this.listener.updateContact(this.contact);
 			}
@@ -125,6 +135,7 @@ public class ViewDetailFragment extends Fragment implements OnClickListener
 			case R.id.action_update_contact:
 			{
 				this.setEnabled(true);
+				this.changeColors(R.color.black);
 				return true;
 			}
 			case R.id.action_delete_contact:
@@ -198,11 +209,14 @@ public class ViewDetailFragment extends Fragment implements OnClickListener
 	
 	private void changeColors(int color)
 	{
+		color = getResources().getColor(color);
 		((EditText) this.rootView.findViewById(R.id.Name)).setTextColor(color);
 		((EditText) this.rootView.findViewById(R.id.Phone)).setTextColor(color);
 		((EditText) this.rootView.findViewById(R.id.Email)).setTextColor(color);
 		((EditText) this.rootView.findViewById(R.id.Street)).setTextColor(color);
 		((EditText) this.rootView.findViewById(R.id.City)).setTextColor(color);
+		
+		
 	}
 	
 }

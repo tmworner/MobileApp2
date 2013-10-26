@@ -16,7 +16,7 @@
     <string name="save">Save</string>
     <color name="focusedBorderColor">#00BFFF</color>
     <color name="normBorderColor">#555</color>
-    <color name="darkGray">#686868</color>
+    <color name="darkGray">#585858</color>
     <color name="black">#000000</color>
 
 </resources>
