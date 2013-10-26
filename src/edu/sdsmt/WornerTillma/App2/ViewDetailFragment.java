@@ -22,6 +22,14 @@ import edu.sdsmt.WornerTillma.App2.Model.Contact;
 
 public class ViewDetailFragment extends Fragment implements OnClickListener
 {
+	public DialogInterface.OnClickListener delete = new DialogInterface.OnClickListener() 
+	{
+		@Override
+		public void onClick(DialogInterface dialog, int which) {
+			listener.deleteContact(contact);
+		}
+	};
+	
 	private IContactControlListener listener;
 	private Contact contact = null;
 	private boolean isOrientationChanging = false;
@@ -157,45 +165,6 @@ public class ViewDetailFragment extends Fragment implements OnClickListener
 		}
 	}
 	
-	public DialogInterface.OnClickListener delete = new DialogInterface.OnClickListener() 
-	{
-		@Override
-		public void onClick(DialogInterface dialog, int which) {
-			listener.deleteContact(contact);
-		}
-	};
-	
-	public static class DeleteDialog extends DialogFragment
-	{
-		DialogInterface.OnClickListener listener;
-		
-		static DeleteDialog newInstance(DialogInterface.OnClickListener listener) 
-		{
-			DeleteDialog d = new DeleteDialog();
-			d.listener = listener;
-			return d;
-		}
-	
-		@Override
-	    public Dialog onCreateDialog(Bundle savedInstanceState) 
-	    {
-	        return new AlertDialog.Builder(this.getActivity())
-	                .setTitle(R.string.confirm)
-	                .setMessage(R.string.confirmMessage)
-	                .setPositiveButton(R.string.ok, listener)
-	                .setNegativeButton(R.string.cancel,
-	                    new DialogInterface.OnClickListener() 
-	                    {
-	                		@Override
-	                        public void onClick(DialogInterface dialog, int whichButton) 
-	                        {
-	                            ((MainActivity)getActivity()).popBackStack();
-	                        }
-	                    })
-	                .create();
-	    }
-	}
-	
 	public boolean GetIsEditMode()
 	{
 		return this.isEditMode;
@@ -261,8 +230,37 @@ public class ViewDetailFragment extends Fragment implements OnClickListener
 		((EditText) this.rootView.findViewById(R.id.Email)).setTextColor(color);
 		((EditText) this.rootView.findViewById(R.id.Street)).setTextColor(color);
 		((EditText) this.rootView.findViewById(R.id.City)).setTextColor(color);
+	}
+	
+	public static class DeleteDialog extends DialogFragment
+	{
+		DialogInterface.OnClickListener listener;
 		
-		
+		static DeleteDialog newInstance(DialogInterface.OnClickListener listener) 
+		{
+			DeleteDialog d = new DeleteDialog();
+			d.listener = listener;
+			return d;
+		}
+	
+		@Override
+	    public Dialog onCreateDialog(Bundle savedInstanceState) 
+	    {
+	        return new AlertDialog.Builder(this.getActivity())
+	                .setTitle(R.string.confirm)
+	                .setMessage(R.string.confirmMessage)
+	                .setPositiveButton(R.string.ok, listener)
+	                .setNegativeButton(R.string.cancel,
+	                    new DialogInterface.OnClickListener() 
+	                    {
+	                		@Override
+	                        public void onClick(DialogInterface dialog, int whichButton) 
+	                        {
+	                            ((MainActivity)getActivity()).popBackStack();
+	                        }
+	                    })
+	                .create();
+	    }
 	}
 	
 }
