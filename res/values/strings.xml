@@ -6,15 +6,17 @@
     <string name="hello_world">Hello world!</string>
     <string name="AddressStr">Address</string>
     <string name="add_contact">Add Contact</string>
-    <string name="add_name">Name</string>
-    <string name="add_number">Phone Number</string>
-    <string name="add_email">Email</string>
-    <string name="add_street">Street Address</string>
-    <string name="add_city">City</string>
+    <string name="add_name"><i>Name</i></string>
+    <string name="add_number"><i>Phone Number</i></string>
+    <string name="add_email"><i>Email</i></string>
+    <string name="add_street"><i>Street Address</i></string>
+    <string name="add_city"><i>City</i></string>
     <string name="delete_contact">Delete Contact</string>
     <string name="update_contact">Update Contact</string>
     <string name="save">Save</string>
     <color name="focusedBorderColor">#00BFFF</color>
     <color name="normBorderColor">#555</color>
+    <color name="darkGray">#686868</color>
+    <color name="black">#000000</color>
 
 </resources>

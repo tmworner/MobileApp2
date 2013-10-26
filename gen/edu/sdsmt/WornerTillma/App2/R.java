@@ -11,6 +11,8 @@ public final class R {
     public static final class attr {
     }
     public static final class color {
+        public static final int black=0x7f060003;
+        public static final int darkGray=0x7f060002;
         public static final int focusedBorderColor=0x7f060000;
         public static final int normBorderColor=0x7f060001;
     }

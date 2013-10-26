@@ -22,7 +22,6 @@ public class ViewDetailFragment extends Fragment implements OnClickListener
 	private boolean isEditMode = false;
 	
 	View rootView = null;
-	
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
@@ -51,24 +50,6 @@ public class ViewDetailFragment extends Fragment implements OnClickListener
 		}
 	}
 	
-	private boolean checkContact()
-	{
-		if(this.contact.Name.equals(""))
-		{
-			return false;
-		}
-		
-		if(this.contact.Phone.equals("") &&
-		   this.contact.Email.equals("") &&
-		   this.contact.Street.equals("") &&
-		   this.contact.City.equals(""))
-		{
-			
-		}
-		
-		return true;
-	}
-	
 	@Override
 	public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
@@ -82,9 +63,11 @@ public class ViewDetailFragment extends Fragment implements OnClickListener
 		if(this.isEditMode)
 		{
 			this.setEnabled(false);
+			this.changeColors(R.color.darkGray);
 		}
 		else
 		{
+			this.changeColors(R.color.black);
 			this.setEnabled(true);
 		}
 		
@@ -211,6 +194,15 @@ public class ViewDetailFragment extends Fragment implements OnClickListener
 			((EditText)this.rootView.findViewById(R.id.Street)).setText("");
 			((EditText)this.rootView.findViewById(R.id.City)).setText("");
 		}
+	}
+	
+	private void changeColors(int color)
+	{
+		((EditText) this.rootView.findViewById(R.id.Name)).setTextColor(color);
+		((EditText) this.rootView.findViewById(R.id.Phone)).setTextColor(color);
+		((EditText) this.rootView.findViewById(R.id.Email)).setTextColor(color);
+		((EditText) this.rootView.findViewById(R.id.Street)).setTextColor(color);
+		((EditText) this.rootView.findViewById(R.id.City)).setTextColor(color);
 	}
 	
 }
