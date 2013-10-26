@@ -66,8 +66,12 @@ public final class R {
         public static final int add_number=0x7f050006;
         public static final int add_street=0x7f050008;
         public static final int app_name=0x7f050000;
+        public static final int cancel=0x7f05000f;
+        public static final int confirm=0x7f05000d;
+        public static final int confirmMessage=0x7f050010;
         public static final int delete_contact=0x7f05000a;
         public static final int hello_world=0x7f050002;
+        public static final int ok=0x7f05000e;
         public static final int save=0x7f05000c;
         public static final int update_contact=0x7f05000b;
     }

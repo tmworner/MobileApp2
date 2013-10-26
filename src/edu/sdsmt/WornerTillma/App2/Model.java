@@ -69,13 +69,14 @@ public class Model extends SQLiteOpenHelper
 		return Model.instance;
 	}
 	
-	public void insertContact(Contact contact)
+	public long insertContact(Contact contact)
 	{
 		ContentValues values = this.populateContentValues(contact);
 		this.openDBConnection();
 		long id = this.db.insert(TABLE_MYCONTACTS,  null,  values);
 		Log.d(TAG, "ContactID inserted = " + String.valueOf(id));
 		this.closeDBConnection();
+		return id;
 	}
 	
 	public void updateContact(Contact contact)

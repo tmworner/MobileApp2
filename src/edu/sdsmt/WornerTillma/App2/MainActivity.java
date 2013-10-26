@@ -53,6 +53,8 @@ public class MainActivity extends Activity implements IContactControlListener
 		this.model = Model.getInstance(this);
 		
 		this.refreshArrayAdapter();
+		this.adapter.sort(new Contact());
+		this.adapter.notifyDataSetChanged();
 	}
 	
 	@Override
@@ -78,8 +80,8 @@ public class MainActivity extends Activity implements IContactControlListener
 		this.adapter.sort(contact);
 		this.adapter.notifyDataSetChanged();
 		
-		this.model.insertContact(contact);
-		this.fragmentManager.popBackStackImmediate();
+		contact.ID = this.model.insertContact(contact);
+		this.popBackStack();
 	}
 	
 	@Override
@@ -90,7 +92,7 @@ public class MainActivity extends Activity implements IContactControlListener
 		this.adapter.notifyDataSetChanged();
 		
 		this.model.deleteContact(contact);
-		this.fragmentManager.popBackStackImmediate();
+		this.popBackStack();
 	}
 	
 	@Override
@@ -102,7 +104,7 @@ public class MainActivity extends Activity implements IContactControlListener
 		this.adapter.notifyDataSetChanged();
 		
 		this.model.updateContact(contact);
-		this.fragmentManager.popBackStackImmediate();
+		this.popBackStack();
 	}
 	
 	@Override 
@@ -115,6 +117,11 @@ public class MainActivity extends Activity implements IContactControlListener
 	public ArrayAdapter<Contact> getContactArrayAdapter()
 	{
 		return this.adapter;
+	}
+	
+	public void popBackStack()
+	{
+		this.fragmentManager.popBackStackImmediate();
 	}
 	
 	private void refreshArrayAdapter()

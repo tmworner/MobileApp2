@@ -1,7 +1,12 @@
 package edu.sdsmt.WornerTillma.App2;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
 import android.app.Fragment;
+import android.app.FragmentTransaction;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -140,7 +145,9 @@ public class ViewDetailFragment extends Fragment implements OnClickListener
 			}
 			case R.id.action_delete_contact:
 			{
-				this.listener.deleteContact(this.contact);
+				FragmentTransaction ft = getFragmentManager().beginTransaction();
+				DialogFragment fragment = DeleteDialog.newInstance(delete);
+				fragment.show(ft, "dialog");
 				return true;
 			}
 			default:
@@ -148,6 +155,45 @@ public class ViewDetailFragment extends Fragment implements OnClickListener
 				return super.onOptionsItemSelected(item);
 			}
 		}
+	}
+	
+	public DialogInterface.OnClickListener delete = new DialogInterface.OnClickListener() 
+	{
+		@Override
+		public void onClick(DialogInterface dialog, int which) {
+			listener.deleteContact(contact);
+		}
+	};
+	
+	public static class DeleteDialog extends DialogFragment
+	{
+		DialogInterface.OnClickListener listener;
+		
+		static DeleteDialog newInstance(DialogInterface.OnClickListener listener) 
+		{
+			DeleteDialog d = new DeleteDialog();
+			d.listener = listener;
+			return d;
+		}
+	
+		@Override
+	    public Dialog onCreateDialog(Bundle savedInstanceState) 
+	    {
+	        return new AlertDialog.Builder(this.getActivity())
+	                .setTitle(R.string.confirm)
+	                .setMessage(R.string.confirmMessage)
+	                .setPositiveButton(R.string.ok, listener)
+	                .setNegativeButton(R.string.cancel,
+	                    new DialogInterface.OnClickListener() 
+	                    {
+	                		@Override
+	                        public void onClick(DialogInterface dialog, int whichButton) 
+	                        {
+	                            ((MainActivity)getActivity()).popBackStack();
+	                        }
+	                    })
+	                .create();
+	    }
 	}
 	
 	public boolean GetIsEditMode()
