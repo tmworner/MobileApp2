@@ -59,6 +59,7 @@ public class MainActivity extends Activity implements IContactControlListener
 	public void selectContact(Contact contact)
 	{
 		this.contact = contact;
+		this.fragmentDetail.SetIsEditMode(true);
 		this.showDetailFragment();
 	}
 	
@@ -66,6 +67,7 @@ public class MainActivity extends Activity implements IContactControlListener
 	public void insertContact()
 	{
 		this.contact = new Contact();
+		this.fragmentDetail.SetIsEditMode(false);
 		this.showDetailFragment();
 	}
 	

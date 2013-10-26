@@ -16,12 +16,12 @@ import edu.sdsmt.WornerTillma.App2.Model.Contact;
 
 public class ViewDetailFragment extends Fragment implements OnClickListener
 {
-
 	private IContactControlListener listener;
 	private Contact contact = null;
 	private boolean isOrientationChanging = false;
+	private boolean isEditMode = false;
 	
-	private EditText EditTextContactName;
+	View rootView = null;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -36,27 +36,37 @@ public class ViewDetailFragment extends Fragment implements OnClickListener
 	@Override
 	public void onClick(View v)
 	{
-		View parent = (View) v.getParent();
-		Contact contact = new Contact();
-		contact.Name = ((EditText)parent.findViewById(R.id.Name)).getText().toString();
-		contact.Phone = ((EditText)parent.findViewById(R.id.Phone)).getText().toString();
-		contact.Email = ((EditText)parent.findViewById(R.id.Email)).getText().toString();
-		contact.Street = ((EditText)parent.findViewById(R.id.Street)).getText().toString();
-		contact.City = ((EditText)parent.findViewById(R.id.City)).getText().toString();
-		MainActivity m = (MainActivity) this.getActivity();
-		m.insertContact(contact);
+		if(v.getId() == R.id.Save)
+		{
+			this.updateContact();
+		
+			if(this.isEditMode)
+			{
+				this.listener.updateContact(this.contact);
+			}
+			else
+			{
+				((MainActivity) this.getActivity()).insertContact(this.contact);
+			}
+		}
 	}
 	
 	@Override
 	public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
-		View rootView = inflater.inflate(R.layout.detail_fragment, container, false);
-		
-		this.EditTextContactName = (EditText) rootView.findViewById(R.id.Name);
+		this.rootView = inflater.inflate(R.layout.detail_fragment, container, false);
 
-		
 		Button saveBtn = (Button) rootView.findViewById(R.id.Save);
 		saveBtn.setOnClickListener(this);
+		
+		if(this.isEditMode)
+		{
+			this.setEnabled(false);
+		}
+		else
+		{
+			this.setEnabled(true);
+		}
 		
 		return rootView;
 	}
@@ -111,8 +121,7 @@ public class ViewDetailFragment extends Fragment implements OnClickListener
 		{
 			case R.id.action_update_contact:
 			{
-				this.contact.Name += "| UPDATED!";
-				this.listener.updateContact(this.contact);
+				this.setEnabled(true);
 				return true;
 			}
 			case R.id.action_delete_contact:
@@ -127,16 +136,63 @@ public class ViewDetailFragment extends Fragment implements OnClickListener
 		}
 	}
 	
-	private void displayContact()
+	public boolean GetIsEditMode()
 	{
-/*		if (this.contact.ID > 0)
+		return this.isEditMode;
+	}
+	
+	public void SetIsEditMode(boolean mode)
+	{
+		this.isEditMode = mode;
+	}
+	
+	private void setEnabled(boolean enabled)
+	{
+		this.rootView.findViewById(R.id.Name).setEnabled(enabled);
+		this.rootView.findViewById(R.id.Phone).setEnabled(enabled);
+		this.rootView.findViewById(R.id.Email).setEnabled(enabled);
+		this.rootView.findViewById(R.id.Street).setEnabled(enabled);
+		this.rootView.findViewById(R.id.City).setEnabled(enabled);
+		
+		if(!enabled)
 		{
-			this.EditTextContactName.setText(this.contact.Name);
+			this.rootView.findViewById(R.id.Save).setVisibility(View.INVISIBLE);
 		}
 		else
 		{
-			this.EditTextContactName.setHint("New Contact");
-		}*/
+			this.rootView.findViewById(R.id.Save).setVisibility(View.VISIBLE);
+		}
+	}
+	
+	private void updateContact()
+	{
+		this.contact.Name = ((EditText)this.rootView.findViewById(R.id.Name)).getText().toString();
+		this.contact.Phone = ((EditText)this.rootView.findViewById(R.id.Phone)).getText().toString();
+		this.contact.Email = ((EditText)this.rootView.findViewById(R.id.Email)).getText().toString();
+		this.contact.Street = ((EditText)this.rootView.findViewById(R.id.Street)).getText().toString();
+		this.contact.City = ((EditText)this.rootView.findViewById(R.id.City)).getText().toString();
+	}
+	
+	private void displayContact()
+	{
+		if (this.contact.ID > 0)
+		{
+			EditText editText = (EditText) this.rootView.findViewById(R.id.Name);
+			editText.setText(this.contact.Name);
+			
+			editText = (EditText) this.rootView.findViewById(R.id.Phone);
+			editText.setText(this.contact.Phone);
+			
+			editText = (EditText) this.rootView.findViewById(R.id.Email);
+			editText.setText(this.contact.Email);
+			
+			editText = (EditText) this.rootView.findViewById(R.id.Street);
+			editText.setText(this.contact.Street);
+			
+			editText = (EditText) this.rootView.findViewById(R.id.City);
+			editText.setText(this.contact.City);
+			
+		}
 	}
 	
 }
