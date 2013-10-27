@@ -104,7 +104,7 @@ public class ViewDetailFragment extends Fragment implements OnClickListener
 		
 		this.contact = this.listener.getContact();
 		
-		if(this.isEditMode)
+		if(this.isEditMode && !this.restoreData)
 		{
 			this.setEnabled(false);
 			this.changeColors(R.color.darkGray);

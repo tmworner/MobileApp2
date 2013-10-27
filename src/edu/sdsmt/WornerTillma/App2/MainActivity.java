@@ -9,10 +9,34 @@ import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import edu.sdsmt.WornerTillma.App2.Model.Contact;
 
+/**
+ * The activity from which the entire app runs.
+ * 
+ * <p>
+ * <div style="font-weight:bold">
+ * Description:
+ * </div>
+ * 		<div style="padding-left:3em">
+ * 		This class handles most of the app. It controls the detail and list fragments, the saved states, and the database.
+ * 		It does not outright handle the updating or adding of a contact (as seen by the user), but it does control refreshing
+ * 		of the UI and the actual storing of the update/insert.
+ * 		</div>
+ * </p>
+ * 
+ * @since October 22, 2013<br>
+ * @author Teresa Worner and James Tillma
+ */
 public class MainActivity extends Activity implements IContactControlListener
 {
+	/**
+	 * The tag for the contact list fragment
+	 */
 	private final static String FRAGMENT_LIST_TAG = "ContactListTag";
+	/**
+	 * The tag for the contact details view
+	 */
 	private final static String FRAGMENT_DETAIL_TAG = "ContactViewTag";
+	
 	
 	private final static String ID_KEY = "Id";
 	private final static String NAME_KEY = "Name";
@@ -21,15 +45,38 @@ public class MainActivity extends Activity implements IContactControlListener
 	private final static String STREET_KEY = "Street";
 	private final static String CITY_KEY = "City";
 	
+	/**
+	 * The fragment manager for the app
+	 */
 	private FragmentManager fragmentManager;
+	/**
+	 * The fragment that displays the list of contact in the main activity
+	 */
 	private ViewListFragment fragmentList;
+	/**
+	 * The fragment that displays the details of the contact
+	 */
 	private ViewDetailFragment fragmentDetail;
-	
+	/**
+	 * Handles the database operations
+	 */	
 	private Model model;
+	/**
+	 * Object that holds the current contact information
+	 */
 	private Contact contact;
+	/**
+	 * List of contacts
+	 */
 	private List<Contact> contacts;
+	/**
+	 * Object for displaying and modifying contact data
+	 */
 	private ArrayAdapter<Contact> adapter;
 
+	/**
+	 * Creates the fragments, refreshes the ArrayAdapter, and preps the contacts for initial display.
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
 	{
@@ -106,6 +153,9 @@ public class MainActivity extends Activity implements IContactControlListener
 		}
 	}
 	
+	/**
+	 * Shows the contact in details fragment and determines whether or not the fields are to be active
+	 */
 	@Override
 	public void selectContact(Contact contact)
 	{
@@ -114,6 +164,9 @@ public class MainActivity extends Activity implements IContactControlListener
 		this.showDetailFragment();
 	}
 	
+	/**
+	 * Creates a new contact object and displays a blank detail fragment.
+	 */
 	@Override
 	public void insertContact()
 	{
@@ -122,6 +175,9 @@ public class MainActivity extends Activity implements IContactControlListener
 		this.showDetailFragment();
 	}
 	
+	/**
+	 * Inserts the new contact into the database and displays it on the list view
+	 */
 	@Override
 	public void insertContact(Contact contact)
 	{
@@ -132,7 +188,10 @@ public class MainActivity extends Activity implements IContactControlListener
 		contact.ID = this.model.insertContact(contact);
 		this.popBackStack();
 	}
-	
+
+	/**
+	 * Deletes the contact from the UI and the database
+	 */
 	@Override
 	public void deleteContact(Contact contact)
 	{
@@ -144,6 +203,9 @@ public class MainActivity extends Activity implements IContactControlListener
 		this.popBackStack();
 	}
 	
+	/**
+	 * Updates a contact on the UI and the database (really, removes old and adds new)
+	 */
 	@Override
 	public void updateContact(Contact contact)
 	{
@@ -156,23 +218,35 @@ public class MainActivity extends Activity implements IContactControlListener
 		this.popBackStack();
 	}
 	
+	/**
+	 * Gets the current contact object
+	 */
 	@Override 
 	public Contact getContact()
 	{
 		return this.contact;
 	}
 	
-	@Override 
+	/**
+	 * Gets the ArrayAdapter
+	 */ 
+	@Override
 	public ArrayAdapter<Contact> getContactArrayAdapter()
 	{
 		return this.adapter;
 	}
 	
+	/**
+	 * Does an immediate remove from the top of the backStack
+	 */
 	public void popBackStack()
 	{
 		this.fragmentManager.popBackStackImmediate();
 	}
 	
+	/**
+	 * Creates a new ArrayAdapter at the beginning of the app's runtime
+	 */
 	private void refreshArrayAdapter()
 	{
 		this.contacts = Model.getInstance(this).getContacts();
@@ -182,6 +256,9 @@ public class MainActivity extends Activity implements IContactControlListener
 												 this.contacts);
 	}
 	
+	/**
+	 * Displays the detail fragment
+	 */
 	private void showDetailFragment()
 	{
 		this.fragmentManager.beginTransaction()
