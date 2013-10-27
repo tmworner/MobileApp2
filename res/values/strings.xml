@@ -22,5 +22,6 @@
     <color name="normBorderColor">#555</color>
     <color name="darkGray">#585858</color>
     <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
 
 </resources>

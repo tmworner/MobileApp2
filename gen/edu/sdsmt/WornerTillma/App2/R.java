@@ -15,6 +15,7 @@ public final class R {
         public static final int darkGray=0x7f060002;
         public static final int focusedBorderColor=0x7f060000;
         public static final int normBorderColor=0x7f060001;
+        public static final int white=0x7f060004;
     }
     public static final class dimen {
         /**  Default screen margins, per the Android Design guidelines. 

@@ -32,8 +32,10 @@ public class ViewDetailFragment extends Fragment implements OnClickListener
 	
 	private IContactControlListener listener;
 	private Contact contact = null;
+	private Contact restoreContact = null;
 	private boolean isOrientationChanging = false;
 	private boolean isEditMode = false;
+	private boolean restoreData = false;
 	
 	View rootView = null;
 	@Override
@@ -64,14 +66,33 @@ public class ViewDetailFragment extends Fragment implements OnClickListener
 			}
 			else if(this.isEditMode)
 			{
+				this.restoreData = false;
 				this.listener.updateContact(this.contact);
 			}
 			else
 			{
+				this.restoreData = false;
 				((MainActivity) this.getActivity()).insertContact(this.contact);
 			}
 		}
 	}
+	
+	@Override
+    public void onSaveInstanceState(Bundle outState)
+    {
+		if(this.contact != null)
+		{
+			this.restoreContact = new Contact();
+			this.restoreContact.Name = ((EditText)this.rootView.findViewById(R.id.Name)).getText().toString();
+			this.restoreContact.Phone = ((EditText)this.rootView.findViewById(R.id.Phone)).getText().toString();
+			this.restoreContact.Email = ((EditText)this.rootView.findViewById(R.id.Email)).getText().toString();
+			this.restoreContact.Street = ((EditText)this.rootView.findViewById(R.id.Street)).getText().toString();
+			this.restoreContact.City = ((EditText)this.rootView.findViewById(R.id.City)).getText().toString();
+	        this.restoreData = true;
+		}
+		
+        super.onSaveInstanceState(outState);
+    }
 	
 	@Override
 	public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -130,16 +151,27 @@ public class ViewDetailFragment extends Fragment implements OnClickListener
 	{
 		this.isOrientationChanging = getActivity().isChangingConfigurations();
 		
+		if(!this.isOrientationChanging)
+		{
+			this.restoreData = false;
+		}
+		
 		super.onPause();
 	}
 	
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater menuInflator)
 	{
-		if(this.contact.ID > 0)
+		if(this.contact != null && this.contact.ID > 0)
 			getActivity().getMenuInflater().inflate(R.menu.menu_detail, menu);
 	}
 	
+	@Override
+	public void onDetach() {
+		// TODO Auto-generated method stub
+		super.onDetach();
+	}
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item)
 	{
@@ -149,6 +181,7 @@ public class ViewDetailFragment extends Fragment implements OnClickListener
 			{
 				this.setEnabled(true);
 				this.changeColors(R.color.black);
+				
 				return true;
 			}
 			case R.id.action_delete_contact:
@@ -220,6 +253,8 @@ public class ViewDetailFragment extends Fragment implements OnClickListener
 			((EditText)this.rootView.findViewById(R.id.Street)).setText("");
 			((EditText)this.rootView.findViewById(R.id.City)).setText("");
 		}
+
+		this.restoreData();
 	}
 	
 	private void changeColors(int color)
@@ -230,6 +265,21 @@ public class ViewDetailFragment extends Fragment implements OnClickListener
 		((EditText) this.rootView.findViewById(R.id.Email)).setTextColor(color);
 		((EditText) this.rootView.findViewById(R.id.Street)).setTextColor(color);
 		((EditText) this.rootView.findViewById(R.id.City)).setTextColor(color);
+	}
+	
+	private void restoreData()
+	{
+		if(this.restoreData &&
+		   this.contact != null &&
+		   this.restoreContact != null &&
+		   this.contact.ID == this.restoreContact.ID)
+		{
+			((EditText) this.rootView.findViewById(R.id.Name)).setText(this.restoreContact.Name);
+			((EditText) this.rootView.findViewById(R.id.Phone)).setText(this.restoreContact.Phone);
+			((EditText) this.rootView.findViewById(R.id.Email)).setText(this.restoreContact.Email);
+			((EditText) this.rootView.findViewById(R.id.Street)).setText(this.restoreContact.Street);
+			((EditText) this.rootView.findViewById(R.id.City)).setText(this.restoreContact.City);
+		}
 	}
 	
 	public static class DeleteDialog extends DialogFragment

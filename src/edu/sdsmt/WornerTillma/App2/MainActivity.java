@@ -14,6 +14,13 @@ public class MainActivity extends Activity implements IContactControlListener
 	private final static String FRAGMENT_LIST_TAG = "ContactListTag";
 	private final static String FRAGMENT_DETAIL_TAG = "ContactViewTag";
 	
+	private final static String ID_KEY = "Id";
+	private final static String NAME_KEY = "Name";
+	private final static String PHONE_KEY = "Phone";
+	private final static String EMAIL_KEY = "Email";
+	private final static String STREET_KEY = "Street";
+	private final static String CITY_KEY = "City";
+	
 	private FragmentManager fragmentManager;
 	private ViewListFragment fragmentList;
 	private ViewDetailFragment fragmentDetail;
@@ -28,6 +35,17 @@ public class MainActivity extends Activity implements IContactControlListener
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
+		if(savedInstanceState != null && savedInstanceState.containsKey(ID_KEY))
+		{
+			this.contact = new Contact();
+			this.contact.ID = savedInstanceState.getLong(ID_KEY);
+			this.contact.Name = savedInstanceState.getString(NAME_KEY);
+			this.contact.Phone = savedInstanceState.getString(PHONE_KEY);
+			this.contact.Email = savedInstanceState.getString(EMAIL_KEY);
+			this.contact.Street = savedInstanceState.getString(STREET_KEY);
+			this.contact.City = savedInstanceState.getString(CITY_KEY);
+		}
 		
 		this.fragmentManager = getFragmentManager();
 		
@@ -55,6 +73,37 @@ public class MainActivity extends Activity implements IContactControlListener
 		this.refreshArrayAdapter();
 		this.adapter.sort(new Contact());
 		this.adapter.notifyDataSetChanged();
+	}
+	
+	@Override
+    public void onSaveInstanceState(Bundle outState)
+    {
+		if(this.contact != null)
+		{
+	        outState.putLong(ID_KEY, this.contact.ID);
+	        outState.putString(NAME_KEY, this.contact.Name);
+	        outState.putString(PHONE_KEY, this.contact.Phone);
+	        outState.putString(EMAIL_KEY, this.contact.Email);
+	        outState.putString(STREET_KEY, this.contact.Street);
+	        outState.putString(CITY_KEY, this.contact.City);
+		}
+		
+        super.onSaveInstanceState(outState);
+    }
+	
+	@Override
+	public void onRestoreInstanceState(Bundle savedInstanceState)
+	{
+		if(savedInstanceState.containsKey(ID_KEY))
+		{
+			this.contact = new Contact();
+			this.contact.ID = savedInstanceState.getLong(ID_KEY);
+			this.contact.Name = savedInstanceState.getString(NAME_KEY);
+			this.contact.Phone = savedInstanceState.getString(PHONE_KEY);
+			this.contact.Email = savedInstanceState.getString(EMAIL_KEY);
+			this.contact.Street = savedInstanceState.getString(STREET_KEY);
+			this.contact.City = savedInstanceState.getString(CITY_KEY);
+		}
 	}
 	
 	@Override
