@@ -12,65 +12,57 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 /**
- * The fragment which shows details of the contact.
+ * Holds the data and handles database interaction.
  * 
  * <p>
  * <div style="font-weight:bold">
  * Description:
  * </div>
  * 		<div style="padding-left:3em">
- * 		
+ * 		This is the model for the project.  It controls access to the database and
  * 		</div>
  * </p>
  * 
- * @since October 22, 2013<br>
- * @author Teresa Worner and James Tillma
+ * @since October 22, 2013
+ * @author James Tillma and Teresa Worner
  */
 public class Model extends SQLiteOpenHelper
 {
 	/**
-	 * Key for the contact ID
+	 * Key for the contact ID (used in storing data in database)
 	 */
 	public static final String KEY_ID = "ContactID";
 	/**
-	 * Key for the contact name
+	 * Key for the contact name (used in storing data in database)
 	 */
 	public static final String KEY_NAME = "ContactName";
 	/**
-	 * Key for the contact phone number
+	 * Key for the contact phone number (used in storing data in database)
 	 */
 	public static final String KEY_PHONE = "ContactPhone";
 	/**
-	 * Key for the contact email
+	 * Key for the contact email (used in storing data in database)
 	 */
 	public static final String KEY_EMAIL = "ContactEmail";
 	/**
-	 * Key for the contact street
+	 * Key for the contact street (used in storing data in database)
 	 */
 	public static final String KEY_STREET = "ContactStreet";
 	/**
-	 * Key for the contact city
+	 * Key for the contact city (used in storing data in database)
 	 */
 	public static final String KEY_CITY = "ContactCity";
-	/**
-	 * The tag for the app, used in Logcat
-	 */
+	
+	//* The tag for the app, used in Logcat
 	private static final String TAG = "App2";
-	/**
-	 * The name of the database
-	 */
+	// The name of the database
 	private static final String DATABASE_NAME = "App2.db";
-	/**
-	 * The version of the database
-	 */
+	// The version of the database
 	private static final int DATABASE_VERSION = 1;
-	/**
-	 * Used in insert into database for a contact
-	 */
+	// Used in insert into database for a contact
 	private static final String TABLE_MYCONTACTS = "Contacts";
-	/**
-	 * String for creating database
-	 */
+	
+	// String for creating database
 	private static final String TABLE_CREATE_MYCONTACTS = 
 			"CREATE TABLE " +
 			TABLE_MYCONTACTS + 
@@ -80,18 +72,14 @@ public class Model extends SQLiteOpenHelper
 			KEY_EMAIL + " TEXT, " + 
 			KEY_STREET + " TEXT, " + 
 			KEY_CITY + " TEXT);";
-	/**
-	 * The database
-	 */
+			
+	// The database
 	private SQLiteDatabase db;
-	/**
-	 * An instance of the model
-	 */
+	// An instance of the model
 	private static Model instance;
 	
 	/**
 	 * Constructor for the class
-	 * @author Teresa Worner and James Tillma
 	 * @param context
 	 */
 	public Model(Context context)
@@ -101,7 +89,6 @@ public class Model extends SQLiteOpenHelper
 	
 	/**
 	 * Handles creation of database
-	 * @author Teresa Worner and James Tillma
 	 * @param _db The object to use to create the table
 	 */
 	@Override
@@ -112,7 +99,6 @@ public class Model extends SQLiteOpenHelper
 	
 	/**
 	 * Handles upgrade of database (note: at this point it does nothing)
-	 * @author Teresa Worner and James Tillma
 	 */
 	@Override
 	public void onUpgrade(SQLiteDatabase _db, int oldVersion, int newVersion)
@@ -124,10 +110,9 @@ public class Model extends SQLiteOpenHelper
 	}
 	
 	/**
-	 * Gets and insance of the model
-	 * @author Teresa Worner and James Tillma
+	 * Gets and instance of the model
 	 * @param context
-	 * @return Model.isntance An instance of the model for the database
+	 * @return Model.instance An instance of the model for the database
 	 */
 	public static synchronized Model getInstance(Context context)
 	{
@@ -141,7 +126,6 @@ public class Model extends SQLiteOpenHelper
 	
 	/**
 	 * Handles insertion of contact into the database
-	 * @author Teresa Worner and James Tillma
 	 * @param contact The contact to be inserted into the database
 	 * @return id The id of the contact
 	 */
@@ -157,7 +141,6 @@ public class Model extends SQLiteOpenHelper
 	
 	/**
 	 * Handles the update of a contact in the database
-	 * @author Teresa Worner and James Tillma
 	 * @param contact The contact to be updated in the database
 	 */
 	public void updateContact(Contact contact)
@@ -179,7 +162,6 @@ public class Model extends SQLiteOpenHelper
 	
 	/**
 	 * Handles removal of a contact from the database
-	 * @author Teresa Worner and James Tillma
 	 * @param contact The contact to be removed from the database
 	 */
 	public void deleteContact(Contact contact)
@@ -198,7 +180,6 @@ public class Model extends SQLiteOpenHelper
 	
 	/**
 	 * Returns a contact with the given ID
-	 * @author Teresa Worner and James Tillma
 	 * @param id The id of the contact to be returned
 	 * @return contact The contact with the matching id
 	 */
@@ -213,7 +194,8 @@ public class Model extends SQLiteOpenHelper
 									  null,
 									  null,
 									  KEY_NAME);
-		//move cursor to first instance of positive result of query
+									  
+		// move cursor to first instance of positive result of query
 		if(cursor.moveToFirst())
 		{
 			contact = this.cursorToContact(cursor);
@@ -227,7 +209,6 @@ public class Model extends SQLiteOpenHelper
 	
 	/**
 	 * Creates and sets a list of contacts
-	 * @author Teresa Worner and James Tillma
 	 * @return The list of contacts
 	 */
 	public List<Contact> getContacts()
@@ -245,7 +226,8 @@ public class Model extends SQLiteOpenHelper
 									  KEY_NAME);
 									  
 		cursor.moveToFirst();
-		//loop that adds all contacts from the general query to the list of contacts
+		
+		// loop that adds all contacts from the general query to the list of contacts
 		while(cursor.isAfterLast() == false)
 		{
 			Contact contact = this.cursorToContact(cursor);
@@ -261,7 +243,6 @@ public class Model extends SQLiteOpenHelper
 	
 	/**
 	 * Opens a connection to the database of contacts
-	 * @author Teresa Worner and James Tillma
 	 */
 	private void openDBConnection()
 	{
@@ -270,7 +251,6 @@ public class Model extends SQLiteOpenHelper
 	
 	/**
 	 * Closes a connection to the database of contacts
-	 * @author Teresa Worner and James Tillma
 	 */
 	private void closeDBConnection()
 	{
@@ -282,7 +262,6 @@ public class Model extends SQLiteOpenHelper
 	
 	/**
 	 * Takes a cursor and gets the contact the cursor references
-	 * @author Teresa Worner and James Tillma
 	 * @param cursor the cursor linked to a contact
 	 * @return contact A new contact based on the information found at the cursor's contact
 	 */
@@ -299,7 +278,6 @@ public class Model extends SQLiteOpenHelper
 	
 	/**
 	 * Puts contact information in a ContentValues object and returns it
-	 * @author Teresa Worner and James Tillma
 	 * @param contact the contact to populate values from
 	 * @return values The ContentValues object based on the input parameter contact
 	 */
@@ -315,19 +293,18 @@ public class Model extends SQLiteOpenHelper
 	}
 	
 	/**
-	 * Inner contact comparator class.
+	 * Inner contact class. Implements Comparator so contacts can be sorted.
 	 * 
 	 * <p>
 	 * <div style="font-weight:bold">
 	 * Description:
 	 * </div>
 	 * 		<div style="padding-left:3em">
-	 * 		HAndles comparison of contacts by name
+	 * 		Holds contact data and handles comparison of contacts by name.
 	 * 		</div>
 	 * </p>
 	 * 
-	 * @since October 22, 2013<br>
-	 * @author Teresa Worner and James Tillma
+	 * @since October 22, 2013
 	 */
 	public static class Contact implements Comparator<Contact>
 	{
@@ -358,7 +335,6 @@ public class Model extends SQLiteOpenHelper
 		
 		/**
 		 * Constructor if an ID isn't given
-		 * @author Teresa Worner and James Tillma
 		 */
 		public Contact()
 		{
@@ -367,7 +343,6 @@ public class Model extends SQLiteOpenHelper
 		
 		/**
 		 * Constructor if an ID is given
-		 * @author Teresa Worner and James Tillma
 		 * @param id The id to use in the class's ID
 		 */
 		public Contact(long id)
@@ -377,7 +352,6 @@ public class Model extends SQLiteOpenHelper
 		
 		/**
 		 * Overrides the toString function to return the name of the contact
-		 * @author Teresa Worner and James Tillma
 		 */
 		@Override
 		public String toString()
@@ -387,7 +361,6 @@ public class Model extends SQLiteOpenHelper
 		
 		/**
 		 * Override to compare the names of the contacts
-		 * @author Teresa Worner and James Tillma
 		 * @param lhs The contact "on the left" of the compare
 		 * @param rhs The contact "on the right" of the compare
 		 */

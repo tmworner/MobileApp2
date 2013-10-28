@@ -6,13 +6,22 @@
  * Description:
  * </div>
  * 		<div style="padding-left:3em">
- * 		App Name: Address Book
- * 		Package Name: edu.sdsmt.WornerTillma.App2
+ * 		App Name: Address Book<br>
+ * 		Package Name: edu.sdsmt.WornerTillma.App2<br>
  * 		Class: Mobile Computing, CSC 492<br>
  * 		Professor: Dr. Logar, Brian Butterfield<br>
  * 		Due: October 28, 2013<br><br>
  * 
- * 		proper description of app
+ * 		This app allows the user to store contacts.  The main page lists contact names and
+ * 		selecting a contact displays detailed information, including phone number,
+ * 		email address, street address, and city.  When a user adds a new contact or edits 
+ *  	an existing contact, they are required to enter a name, but all other data is optional.
+ *  	Duplicate names are permitted.  A user can edit or delete a contact from the options menu on the
+ *  	detail page which is reached by selecting a contact on the app's home screen.
+ *  	<br><br>
+ *  
+ *  	A large portion of the code for this app comes from Brian Butterfield's examples, modified
+ *  	to suit the requirements of this app.
  * 		</div>
  * </p>
  *
@@ -45,6 +54,12 @@
  * 		editborder_focused.xml<br>
  * 		edittext_border.xml<br>
  * 		selector.xml
+ * 		</div>
+ * 
+ * 		Other:
+ * 		<div style="padding-left:3em; font-style:normal">
+ * 		strings.xml<br>
+ * 		styles.xml
  * 		</div>
  * 
  * 		</div>

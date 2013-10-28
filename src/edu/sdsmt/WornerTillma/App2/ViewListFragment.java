@@ -9,20 +9,22 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import edu.sdsmt.WornerTillma.App2.Model.Contact;
+
 /**
- * The fragment which shows details of the contact.
+ * The fragment which shows lists contacts.
  * 
  * <p>
  * <div style="font-weight:bold">
  * Description:
  * </div>
  * 		<div style="padding-left:3em">
- * 		
+ * 		This class is the list fragment. It is the main page of the app and lists all
+ * 		the user's contacts.
  * 		</div>
  * </p>
  * 
- * @since October 22, 2013<br>
- * @author Teresa Worner and James Tillma
+ * @since October 22, 2013
+ * @author James Tillma and Teresa Worner
  */
 public class ViewListFragment extends ListFragment
 {
@@ -33,7 +35,6 @@ public class ViewListFragment extends ListFragment
 	
 	/**
 	 * creates list fragment with options menu
-	 * @author Teresa Worner and James Tillma
 	 * @param savedInstanceState The saved state of a previous runtime
 	 */
 	@Override
@@ -45,7 +46,6 @@ public class ViewListFragment extends ListFragment
 	
 	/**
 	 * Creates options menu
-	 * @author Teresa Worner and James Tillma
 	 * @param menu The menu to inflate
 	 * @param menuInflater The inflater for said menu
 	 */
@@ -58,13 +58,12 @@ public class ViewListFragment extends ListFragment
 	
 	/**
 	 * Attaches the listener to the main activity
-	 * @author Teresa Worner and James Tillma
 	 * @param activity The activity to attach the fragment
 	 */
 	@Override
 	public void onAttach(Activity activity)
 	{
-		//try to attach the listener and if it fails throw an exception
+		// try to attach the listener and if it fails throw an exception
 		try
 		{
 			this.listener = (IContactControlListener) activity;
@@ -78,8 +77,7 @@ public class ViewListFragment extends ListFragment
 	}
 	
 	/**
-	 * The on resume of the fragment
-	 * @author Teresa Worner and James Tillma
+	 * Refresh the contact list.
 	 */
 	@Override
 	public void onResume()
@@ -91,7 +89,6 @@ public class ViewListFragment extends ListFragment
 	
 	/**
 	 * Handles selection of an options menu item
-	 * @author Teresa Worner and James Tillma
 	 * @param item The item that was selected on the fragment
 	 */
 	@Override
@@ -99,7 +96,7 @@ public class ViewListFragment extends ListFragment
 	{
 		switch(item.getItemId())
 		{
-			//if add contact was selected, insert a contact
+			// if add contact was selected, insert a contact
 			case R.id.action_add_contact:
 			{
 				this.listener.insertContact();
@@ -113,15 +110,14 @@ public class ViewListFragment extends ListFragment
 	
 	/**
 	 * Handles the selection of a contact from the list view
-	 * @author Teresa Worner and James Tillma
 	 */
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id)
 	{
-		//get an item by position in the contact
+		// get an item by position in the contact
 		Contact contact = null;
 		contact = (Contact) getListAdapter().getItem(position);
-		//if the getItem succeeded, mark that contact as selected
+		// if the getItem succeeded, mark that contact as selected
 		if(contact != null)
 		{
 			this.listener.selectContact(contact);
@@ -130,7 +126,6 @@ public class ViewListFragment extends ListFragment
 	
 	/**
 	 * Sets the list adapter
-	 * @author Teresa Worner and James Tillma
 	 */
 	private void refreshContactList()
 	{
