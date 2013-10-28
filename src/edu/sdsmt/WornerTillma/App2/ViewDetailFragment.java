@@ -217,8 +217,18 @@ public class ViewDetailFragment extends Fragment implements OnClickListener
 		{	
 			this.contact = this.listener.getContact();
 		}
-		
-		displayContact();
+/*NEW*/
+		if(restoreData == true)
+		{
+			((EditText) this.rootView.findViewById(R.id.Name)).setText(this.restoreContact.Name);
+			((EditText) this.rootView.findViewById(R.id.Phone)).setText(this.restoreContact.Phone);
+			((EditText) this.rootView.findViewById(R.id.Email)).setText(this.restoreContact.Email);
+			((EditText) this.rootView.findViewById(R.id.Street)).setText(this.restoreContact.Street);
+			((EditText) this.rootView.findViewById(R.id.City)).setText(this.restoreContact.City);
+			displayContact(restoreContact);
+		}
+		else
+			displayContact(contact);
 	}
 	/**
 	 * Handles how the fragment pauses
@@ -227,7 +237,7 @@ public class ViewDetailFragment extends Fragment implements OnClickListener
 	@Override
 	public void onPause()
 	{
-		//Decect if the orientation is changing
+		//Detect if the orientation is changing
 		this.isOrientationChanging = getActivity().isChangingConfigurations();
 		//if it isn't set not to restore data and set that it isn't being edited
 		if(!this.isOrientationChanging)
@@ -347,20 +357,22 @@ public class ViewDetailFragment extends Fragment implements OnClickListener
 		this.contact.Street = ((EditText)this.rootView.findViewById(R.id.Street)).getText().toString();
 		this.contact.City = ((EditText)this.rootView.findViewById(R.id.City)).getText().toString();
 	}
+/*MODIFIED*/
 	/**
 	 * Displays details of the contact object in the fragment
 	 * @author Teresa Worner and James Tillma
+	 * @param tempContact A contact used locally to set the values in the editText fields
 	 */
-	private void displayContact()
+	private void displayContact(Contact tempContact)
 	{
 		//if the contact is valid, displays the text in the editText fields
-		if (this.contact.ID > 0)
+		if (contact.ID > 0)
 		{
-			((EditText) this.rootView.findViewById(R.id.Name)).setText(this.contact.Name);
-			((EditText) this.rootView.findViewById(R.id.Phone)).setText(this.contact.Phone);
-			((EditText) this.rootView.findViewById(R.id.Email)).setText(this.contact.Email);
-			((EditText) this.rootView.findViewById(R.id.Street)).setText(this.contact.Street);
-			((EditText) this.rootView.findViewById(R.id.City)).setText(this.contact.City);
+			((EditText) this.rootView.findViewById(R.id.Name)).setText(tempContact.Name);
+			((EditText) this.rootView.findViewById(R.id.Phone)).setText(tempContact.Phone);
+			((EditText) this.rootView.findViewById(R.id.Email)).setText(tempContact.Email);
+			((EditText) this.rootView.findViewById(R.id.Street)).setText(tempContact.Street);
+			((EditText) this.rootView.findViewById(R.id.City)).setText(tempContact.City);
 		}
 		//otherwise, it sets the text in the editTexts to be empty
 		else

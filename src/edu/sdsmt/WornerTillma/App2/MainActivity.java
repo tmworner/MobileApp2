@@ -220,13 +220,14 @@ public class MainActivity extends Activity implements IContactControlListener
 	{
 		//Remove the contact and update the UI
 		this.adapter.remove(contact);
-		this.adapter.sort(contact);;
+		this.adapter.sort(contact);
 		this.adapter.notifyDataSetChanged();
 		//Remove the contact from the database
 		this.model.deleteContact(contact);
 		this.popBackStack();
 	}
 	
+/*MODIFIED*/
 	/**
 	 * Updates a contact on the UI and the database (really, removes old and adds new)
 	 * @author Teresa Worner and James Tillma
@@ -236,12 +237,12 @@ public class MainActivity extends Activity implements IContactControlListener
 	public void updateContact(Contact contact)
 	{
 		//Update (that is, remove old and add new) the contact and update the UI
-		this.adapter.remove(contact);;
+		this.adapter.remove(contact);
 		this.adapter.add(contact);
 		this.adapter.sort(contact);
-		this.adapter.notifyDataSetChanged();
-		//Update the contact in the database
 		this.model.updateContact(contact);
+		this.refreshArrayAdapter();
+		this.adapter.notifyDataSetChanged();
 		this.popBackStack();
 	}
 	
