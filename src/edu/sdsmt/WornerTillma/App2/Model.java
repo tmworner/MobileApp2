@@ -19,7 +19,8 @@ import android.util.Log;
  * Description:
  * </div>
  * 		<div style="padding-left:3em">
- * 		This is the model for the project.  It controls access to the database and
+ * 		This is the model for the project.  It controls access to the database and holds the Contact class.
+ * 		The Contact class allows for storing contact data and comparing contacts.
  * 		</div>
  * </p>
  * 
